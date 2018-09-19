@@ -38,14 +38,23 @@ public class printUsers extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet printUsers</title>");            
+            out.println("<title>Servlet printUsers</title>");   
+            out.println("<link rel=\"stylesheet\" href=\"https://www.w3schools.com/w3css/4/w3.css\" />");
+            out.println("<link rel=\"stylesheet\" href=\"https://www.w3schools.com/lib/w3-theme-blue-grey.css\" />");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Students " + request.getContextPath() + "</h1>");
+            out.println("<div class=\"w3-container w3-display-topmiddle\" ><h1>Students " + request.getContextPath() + "</h1>");
             
-            Tools dbTools = new Tools(); 
+           out.println("<table class=\"w3-table w3-striped w3-bordered\">");
+           out.println("<tr><th>Name</th><th>Email</th><th>Phone</th></tr>");
+             Tools dbTools = new Tools(); 
             dbTools.loggInn2(out);
             dbTools.printUsers(out);
+            out.println("</table></div>");
+              
+            
+      
+            
             
             out.println("</body>");
             out.println("</html>");

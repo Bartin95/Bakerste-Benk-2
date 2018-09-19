@@ -39,7 +39,10 @@ public class Tools {
                 String fname = rset.getString("fname");
                 String lname = rset.getString("lname");
                 String cus_email = rset.getString("cus_email");
-                out.println(rowCount + ": " + fname + ", " + lname + ", " + cus_email + "<br>");
+                String cus_phone = rset.getString("cus_phone");
+                String user_ID = rset.getString("user_ID");
+
+                out.println("<tr><td> <a href=\"" + user_ID + "#\">" + fname + " " + lname + "</a></td><td> " + cus_email + "</td><td>" + cus_phone + "</td></tr>");
                 ++rowCount;
             }  // end while
             out.println("Number of students: " + rowCount);

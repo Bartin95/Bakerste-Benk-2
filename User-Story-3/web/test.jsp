@@ -4,6 +4,8 @@
     Author     : glenn
 --%>
 
+ <%@ page import="classes.Tools" %>
+ <%@ page import="java.io.PrintWriter" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -13,5 +15,10 @@
     </head>
     <body>
         <h1>Hello World!</h1>
+        <%
+            Tools dbTools = new Tools(); 
+            dbTools.loggInn2(out);
+            dbTools.printUsers(out);
+            %>
     </body>
 </html>

@@ -16,4 +16,5 @@ INSERT INTO users
 VALUES ('2', 'Jan', 'Heldal', '12345678', 'jan@hotmail.com');
 INSERT INTO users
 VALUES ('3', 'Erik', 'Eriksen', '87654321', 'erik@hotmail.com');
-
+INSERT INTO users
+VALUES ('45', 'Tom', 'Johnsen', '9166611', 'tom@hotmail.com');
