@@ -1,43 +1,33 @@
-
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>IS-109/110</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"> 
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
     </head>
     <body>
-
-        <div class="w3-sidebar w3-bar-block w3-black w3-xxlarge" style="width:70px">
-            <a href="#" class="w3-bar-item w3-button"><i class="fa fa-home"></i></a> 
-            <a href="#" class="w3-bar-item w3-button"><i class="fa fa-envelope"></i></a> 
-            <a href="#" class="w3-bar-item w3-button"><i class="fa fa-cog"></i></a> 
-            <a href="#" class="w3-bar-item w3-button"><i class="fa fa-sign-out"></i></a> 
-        </div>
-        <div style="margin-left:70px">
-
-
-
-
-
+        <div class="w3-display-middle">
             <div class="w3-container w3-teal">
-                <h1 style="margin-left: 12%;">IS-109/110</h1>
-            </div>
-            <!-- Sidebar -->
-            <div class="w3-sidebar w3-bar-block" style="width:12%">
-                <a href="students.jsp" class="w3-bar-item w3-button  w3-border-bottom w3-border-right">Overview of students</a>
-            </div>
-            <!-- Page Content -->
-            <div style="margin-left:12%">
-                <div class="w3-container">
-                    <h2>Moduler i IS-110</h2>
-                    <p>IS-110 inneholder 11 nye moduler, i tillegg til de 5 fra IS-109 (alt dere lærer i IS-110 bygger på modulene fra IS-109, så dere må fortsatt kunne dem like godt). Modul 1-10 er obligatoriske, og må tas i rekkefølge. Så er modul 14 og 15 obligatorisk. De valgfrie modulene kan tas i hvilken som helst rekkefølge.</p>
-                    <p>Minstekravet for å få gå opp til eksamen er at dere har fått godkjent de obligatoriske modulene, men husk at alle modulene er pensum. Hvis dere sikter mot en god karakter bør dere ta alle.</p>
-                </div>
-            </div> 
+                <h1>IS-109/110</h1></div>
+            <form class="w3-container w3-card-4" action="Login" method="post">
+                <h2 class="w3-text-teal">Logg inn</h2>
+                <p>Log in with your username and password. Click <a href="https://www.uia.no/student/it-hjelp">here</a> for help.</p>
+                <p>
+                    <label class="w3-text-teal"><b>Username</b></label> 
+                    <input class="w3-input w3-border" type="text" name="uname"> 
+                </p>
+                <p>
+                    <label class="w3-text-teal"><b>Password</b> 
+                    <input class="w3-input w3-border" type="password" name="upass">
+                </p>
 
+                <p>
+                    <input class="w3-btn w3-teal" type="submit" value="Login">
+                </p>
+                
+                <p><a href="dashboard.jsp">(login)</a></p>
+            </form>
         </div>
-
     </body>
 </html>
