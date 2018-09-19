@@ -1,4 +1,5 @@
 use students;
+ALTER TABLE users AUTO_INCREMENT = 1;
 
 CREATE TABLE users (
     user_ID INTEGER NOT NULL,
@@ -15,3 +16,4 @@ INSERT INTO users
 VALUES ('2', 'Jan', 'Heldal', '12345678', 'jan@hotmail.com');
 INSERT INTO users
 VALUES ('3', 'Erik', 'Eriksen', '87654321', 'erik@hotmail.com');
+

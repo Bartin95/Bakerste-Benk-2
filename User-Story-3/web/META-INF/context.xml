@@ -1,2 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Context path="/User-Story-3"/>
+<Context path="/User-Story-3">
+    
+    <Resource name="jdbc/localhostDS" type="javax.sql.DataSource" auth="Container" 
+              username="root" password="root" driverClassName="com.mysql.cj.jdbc.Driver"
+              url="jdbc:mysql://localhost:3306/202">
+    </Resource>	
+    
+</Context>

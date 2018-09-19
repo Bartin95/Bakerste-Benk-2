@@ -18,7 +18,8 @@
         <div class="w3-bar w3-dark-grey">
   <a href="#" class="w3-bar-item w3-button"><i class="fa fa-home"></i> Dashboard</a>
   <a href="#" class="w3-bar-item w3-button"><i class="fa fa-envelope"></i> Messages</a>
-  <a href="#" class="w3-bar-item w3-button"><i class="fa fa-sign-out">Sign out</i></a>
+  <a href="printUsersdb" class="w3-bar-item w3-button"><i class="fa fa-users"> Students</i></a>
+  <a href="#" class="w3-bar-item w3-button"><i class="fa fa-sign-out"> Sign out</i></a>
 </div>
         
         <!-- Page Content -->
