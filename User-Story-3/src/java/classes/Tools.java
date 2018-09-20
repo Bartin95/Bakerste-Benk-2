@@ -33,7 +33,6 @@ public class Tools {
 
             // Step 4: Process the ResultSet by scrolling the cursor forward via next().
             //  For each row, retrieve the contents of the cells with getXxx(columnName).
-            out.println("Students in class:" + "<br>");
             int rowCount = 0;
             while (rset.next()) {   // Move the cursor to the next row, return false if no more row
                 String fname = rset.getString("fname");
