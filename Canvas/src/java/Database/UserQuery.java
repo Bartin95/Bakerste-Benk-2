@@ -34,7 +34,7 @@ public class UserQuery {
         out.println(" Create module " + id);
         
         try {
-            String ins = "insert into canvas.modules(id,title, moduledescription) values(?,?,?)";
+            String ins = "insert into 202.modules(id,title, moduledescription) values(?,?,?)";
             newModule = conn.prepareStatement(ins);
             
             newModule.setString(1,id);

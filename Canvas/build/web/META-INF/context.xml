@@ -7,6 +7,6 @@
     username="root" 
     password="root" 
     driverClassName="com.mysql.jdbc.Driver"
-    url="jdbc:mysql://localhost:3306/canvas">
+    url="jdbc:mysql://localhost:3306/202">
 </Resource>
 </Context>
