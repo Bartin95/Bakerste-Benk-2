@@ -112,7 +112,10 @@ public class Query {
          }
    }
     
-    
+    /**
+     * Akka bakka
+     * @param out 
+     */
     
     public void printUsers(PrintWriter out) {
         String strSelect = "select * from users";
@@ -143,5 +146,6 @@ public class Query {
             out.println("Not from DB " + ex);
         }
     }
+    
 }
 
