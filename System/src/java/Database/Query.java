@@ -79,4 +79,36 @@ public class Query {
         }
     }
     
+    public class DbModuler {
+    Statement stmt;
+    
+    public void printModules(PrintWriter out, Connection conn)
+    { 
+         String strSelect = "select * from modulerlearning";
+
+         System.out.println("Her er modulene og læringsmål: " + strSelect); // Echo For debugging
+ 
+         try {
+             
+             stmt = conn.createStatement();   
+             ResultSet rset = stmt.executeQuery(strSelect);
+ 
+            
+                // FINN UT HVORDMAN MAN ENDRER LIVE I SIDEN!
+                out.println("Her er modulene, og deres læringsmål, trykk her for å endre:" +"<br>");
+                int rowCount = 0;
+                while(rset.next()) {   // Move the cursor to the next row, return false if no more row
+                    String resources = rset.getString("resources");
+                    out.println(rowCount +": " + resources + ", " +"<br>");
+                    ++rowCount;
+                 }  // end while
+         } // end catch     
+         catch (SQLException ex) {
+                out.println("Db funker desverre ikke" +ex);
+         }
+   }
+    
+    
 }
+}
+
