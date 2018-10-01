@@ -52,7 +52,7 @@ public class Tools {
     }
 
     // @Resource DataSource LocalhostDS;
-    public void loggInn2(PrintWriter out) {
+    public void Con(PrintWriter out) {
         try {
             // Step 1: Allocate a database 'Connection' object
             Context cont = new InitialContext();
