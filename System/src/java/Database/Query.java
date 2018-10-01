@@ -143,23 +143,5 @@ public class Query {
             out.println("Not from DB " + ex);
         }
     }
-    
-    public void Con(PrintWriter out) {
-        try {
-            // Step 1: Allocate a database 'Connection' object
-            Context cont = new InitialContext();
-            DataSource ds = (DataSource) cont.lookup("java:comp/env/jdbc/localhostDS");
-            //DataSource ds = (DataSource)cont.lookup("jdbc/LocalhostDS");
-            conn = ds.getConnection();
-
-            // Step 2: Allocate a 'Statement' object in the Connection
-            stmt = conn.createStatement();
-        } catch (SQLException ex) {
-            out.println("Not connected to database " + ex);
-        } catch (NamingException nex) {
-            out.println("Not correct naming" + nex);
-        }
-
-    }
 }
 
