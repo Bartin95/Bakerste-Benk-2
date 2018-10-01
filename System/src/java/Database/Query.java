@@ -113,7 +113,6 @@ public class Query {
    }
     
     
-}
     
     public void printUsers(PrintWriter out) {
         String strSelect = "select * from users";
