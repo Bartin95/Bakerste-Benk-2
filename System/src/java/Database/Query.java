@@ -83,14 +83,14 @@ public class Query {
         }
     }
     
-    public class DbModuler {
-    Statement stmt;
-    
-    public void printModules(PrintWriter out, Connection conn)
+   
+    //printer ut learning resources 
+    public void printLearningResources(PrintWriter out, Connection conn)
     { 
          String strSelect = "select * from modulerlearning";
+         // 
 
-         System.out.println("Her er modulene og læringsmål: " + strSelect); // Echo For debugging
+         System.out.println("Her er læringsmålene for modulene: " + strSelect); // Echo For debugging
  
          try {
              
@@ -99,7 +99,7 @@ public class Query {
  
             
                 // FINN UT HVORDMAN MAN ENDRER LIVE I SIDEN!
-                out.println("Her er modulene, og deres læringsmål, trykk her for å endre:" +"<br>");
+                out.println("Her er læringsmålene, trykk her for å endre:" +"<br>");
                 int rowCount = 0;
                 while(rset.next()) {   // Move the cursor to the next row, return false if no more row
                     String resources = rset.getString("resources");
