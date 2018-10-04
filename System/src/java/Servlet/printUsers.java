@@ -5,6 +5,7 @@
  */
 package Servlet;
 
+import Database.DBConnection;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -14,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import Database.Query;
+import java.sql.Connection;
 
 /**
  *
@@ -48,17 +50,13 @@ public class printUsers extends HttpServlet {
             
            out.println("<table class=\"w3-table w3-striped w3-bordered\">");
            out.println("<tr><th>Name</th><th>Email</th><th>Phone</th></tr>");
-            Query dbTools = new Query(); 
-            /**
-             * dbTools.Con(out);
-             */
-            dbTools.printUsers(out);
+            
+           DBConnection tool = new DBConnection();
+            Connection conn = tool.getConnection(out);
+            Query q = new Query();
+            q.printUsers(out, conn);
+            tool.close();
             out.println("</table></div>");
-              
-            
-      
-            
-            
             out.println("</body>");
             out.println("</html>");
         }

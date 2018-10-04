@@ -1,4 +1,4 @@
-use students;
+
 ALTER TABLE users AUTO_INCREMENT = 1;
 
 CREATE TABLE users (
