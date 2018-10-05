@@ -31,12 +31,12 @@
                 <h2>Students in class</h2>
 
                 <sql:setDataSource var="db" driver="${initParam['driverClass']}" url="${initParam['connectionURL']}" user="${initParam['username']}" password="${initParam['password']}" />
-                <sql:query var="rs" dataSource="${db}">select * from users</sql:query>
+                <sql:query var="rs" dataSource="${db}">SELECT * FROM users  ORDER BY users.name ASC</sql:query>
 
                 <table class="w3-table w3-striped w3-bordered">
                     <tr><th>Name</th><th>Email</th><th>Phone</th></tr>
                     <c:forEach items="${rs.rows}" var="user">
-                    <tr><td> <a href="${user.user_id}"><c:out value="${user.fname} ${user.lname}"></c:out></a></td><td><c:out value="${user.email}"></c:out></td><td><c:out value="${user.phone}"></c:out></td></tr>
+                    <tr><td> <a href="${user.user_id}"><c:out value="${user.name}"></c:out></a></td><td><c:out value="${user.email}"></c:out></td><td><c:out value="${user.phone}"></c:out></td></tr>
                     </c:forEach>
                 </table>
             </div>
