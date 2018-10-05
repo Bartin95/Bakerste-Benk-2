@@ -2,12 +2,12 @@
 ALTER TABLE users AUTO_INCREMENT = 1;
 
 CREATE TABLE users (
-    user_ID INTEGER NOT NULL,
+    user_id INTEGER NOT NULL,
     fname VARCHAR(30),
     lname VARCHAR(50) NOT NULL,
-    cus_phone INTEGER(10),
-    cus_email VARCHAR(50),
-    CONSTRAINT user_pk PRIMARY KEY (user_ID)
+    phone INTEGER(10),
+    email VARCHAR(50),
+    CONSTRAINT user_pk PRIMARY KEY (user_id)
 );
 
 INSERT INTO users
