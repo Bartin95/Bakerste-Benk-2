@@ -19,7 +19,7 @@
   <a href="#" class="w3-bar-item w3-button"><i class="fa fa-home"></i> Dashboard</a>
   <a href="#" class="w3-bar-item w3-button"><i class="fa fa-envelope"></i> Messages</a>
   <a href="printUsers" class="w3-bar-item w3-button"><i class="fa fa-users"> Students</i></a>
-  <a href="GetModuleData" class="w3-bar-item w3-button"><i class="fa fa-folder"> Modules</i></a>
+  <a href="AllPost" class="w3-bar-item w3-button"><i class="fa fa-folder"> Modules</i></a>
   <a href="#" class="w3-bar-item w3-button"><i class="fa fa-sign-out"> Sign out</i></a>
 </div>
         
@@ -31,6 +31,8 @@
             <p>Minstekravet for å få gå opp til eksamen er at dere har fått godkjent de obligatoriske modulene, men husk at alle modulene er pensum. Hvis dere sikter mot en god karakter bør dere ta alle.</p>
         </div>
         </div>
+        
+        
     </body>
     
 </html>

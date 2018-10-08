@@ -1,5 +1,7 @@
 /*
- * NOT IN USE; TO BE DELETED
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
  */
 package Servlet;
 
@@ -11,6 +13,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -19,11 +22,11 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author anett
+ * @author anette jorgensen
  */
-@WebServlet(name = "GetModuleData", urlPatterns = {"/GetModuleData"})
-public class GetModuleDetailsServlet extends HttpServlet {
-
+@WebServlet(name = "AllPost", urlPatterns = {"/AllPost"})
+public class AllModules extends HttpServlet {
+    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -38,28 +41,20 @@ public class GetModuleDetailsServlet extends HttpServlet {
             throws ServletException, IOException, SQLException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Modules</title>");            
-            out.println("</head>");
-            
-            out.println("<body>");
-            out.println("<h1> Modules  </h1>");  
-            
-            DBConnection tool = new DBConnection();
-            Connection conn = tool.getConnection(out);
-            
-            Query q = new Query();
-            q.printModuleDetails(out, conn);
-            
-            tool.close();
-            
-            out.println("</body>");
-            out.println("</html>");
+       
+        DBConnection tool = new DBConnection();
+        Connection conn = tool.getConnection(out);
+        
+        Query query = new Query();
+        //query.getAll(conn,out);
+        
+        request.setAttribute("AllPost", query.getAll(conn,out));
+        RequestDispatcher rd = request.getRequestDispatcher("AllPost.jsp");
+        rd.forward(request,response);
+        tool.close();
         }
     }
+
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -75,7 +70,7 @@ public class GetModuleDetailsServlet extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (SQLException ex) {
-            Logger.getLogger(GetModuleDetailsServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AllModules.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -93,7 +88,7 @@ public class GetModuleDetailsServlet extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (SQLException ex) {
-            Logger.getLogger(GetModuleDetailsServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AllModules.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

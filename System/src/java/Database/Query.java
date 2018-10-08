@@ -3,12 +3,16 @@
  */
 package Database;
 
+import Classes.Module;
 import java.io.PrintWriter;
+import static java.lang.System.out;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.LinkedList;
+import java.util.List;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -16,74 +20,147 @@ import javax.sql.DataSource;
 
 /**
  *
- * @author anette
+ * @author anette jorgensen
  */
 public class Query {
     Connection conn;
     Statement stmt;
     
+       
     /**
-     * This method will add a new module to the database
-     * NB for now, it will only add module ID, title and a description
      * 
      * 
-     * @param id - the id of the module
-     * @param title - module title
-     * @param description - a description of the module topic
+     * @param m
+     * @param out
+     * @param conn
+     * @throws SQLException 
+     */
+    
+    public void addModule(Module m, PrintWriter out, Connection conn) throws SQLException{
+        PreparedStatement ps;
+        try {
+            String ins = "insert into modules(mod_ID, mod_title, mod_description, mod_req,mod_point) values(?,?,?,?,?)";
+            ps = conn.prepareStatement(ins);
+            
+            ps.setInt(1,m.getModID());
+            ps.setString(2,m.getModTitle());
+            ps.setString (3,m.getModDescription());
+            ps.setString(4,m.getModRequirements());
+            ps.setInt(5, m.getModPoints());
+            ps.executeUpdate();
+        }
+        catch (SQLException ex) {
+            out.println("New module not added" + ex);
+        }
+        
+    }
+   
+    /**
+     * This method handles ...
+     * @param conn
+     * @param out
+     * @return
+     * @throws SQLException 
+     */
+    public List<Module> getAll(Connection conn, PrintWriter out) throws SQLException{
+        List<Module> ls = new LinkedList<>();
+       PreparedStatement ps;
+                      
+        try {
+            ps = conn.prepareStatement("select* from modules");
+            ResultSet rset = ps.executeQuery();
+                       
+            
+            while(rset.next()){
+                Module m = new Module(rset.getInt(1),rset.getString(2),rset.getString(3),rset.getString(4),rset.getInt(5));
+                ls.add(m);
+            }
+        }
+        catch (SQLException ex){
+            out.println("No modules found" + ex);
+        }
+        return ls;
+    }
+    
+    /**
+     * COMMENT
+     * @param id
+     * @param conn
+     * @param out
+     * @return 
+     */
+    public List<Module> getModById(int id, Connection conn, PrintWriter out){
+        List<Module> ls = new LinkedList<>();
+        PreparedStatement ps;
+                      
+        try {
+            ps = conn.prepareStatement("select* from modules where mod_ID = " + id);
+            ResultSet rset = ps.executeQuery();
+                       
+            
+            while(rset.next()){
+                Module m = new Module(rset.getInt(1),rset.getString(2),rset.getString(3),rset.getString(4), rset.getInt(5));
+                ls.add(m);
+            }
+        }
+        catch (SQLException ex){
+            out.println("No module found" + ex);
+        }
+        return ls;
+    }
+    
+    /**
+     * 
+     * @param id
+     * @param title
+     * @param description
+     * @param req
+     * @param points
      * @param out
      * @param conn 
      */
-    public void newModule(String id,String title,String description, PrintWriter out, Connection conn) {
-        PreparedStatement newModule;
-        out.println(" Create module " + id);
-        
+    public void editModule(int id, String title, String description, String req, int points, PrintWriter out, Connection conn){
+        PreparedStatement ps;
         try {
-            String ins = "insert into canvas.modules(id,title, moduledescription) values(?,?,?)";
-            newModule = conn.prepareStatement(ins);
+            String ins = "update modules set mod_ID = ?,mod_title=?, mod_description=?, mod_req=?, mod_point=? where mod_ID = ?";
+            ps = conn.prepareStatement(ins);
             
-            newModule.setString(1,id);
-            newModule.setString(2,title);
-            newModule.setString(3, description);
-            
-            out.println(newModule);
-            newModule.executeUpdate();
+            ps.setInt(1,id);
+            ps.setString(2,title);
+            ps.setString (3,description);
+            ps.setString(4,req);
+            ps.setInt(5,points);
+            ps.setInt(6,id);
+            ps.executeUpdate();
         }
         catch (SQLException ex) {
-            out.println("New module not created" + ex);
+            out.println("Module not edited" + ex);
         }
+        
     }
     
-    public void printModuleDetails(PrintWriter out, Connection conn){
-        
-        String MODULE ="<li><a href='modules?id=%s&title=%s&description=%s'>%s %s %s</a> </li>";       
-       
-        PreparedStatement getModules;
-        
-        try {
-                      
-            getModules = conn.prepareStatement("select* from modules order by ?");
-            getModules.setString(1,"id");
+    /**
+     * 
+     * @param id
+     * @param conn
+     * @param out
+     * @throws SQLException 
+     */    
+    public void deleteModule(int id, Connection conn, PrintWriter out) throws SQLException{
+        PreparedStatement ps;
+        try{
+            String ins = "delete from modules where mod_ID = ?";
+            ps = conn.prepareStatement(ins);
             
-            ResultSet rset = getModules.executeQuery();
-            
-                        
-            out.println("The modules are:" + "<br>");
-           
-            while(rset.next()){
-                String id = rset.getString("id");
-                String title = rset.getString ("title");
-                String description = rset.getString("moduledescription");               
-                
-                out.format(MODULE,id,title,description,id,title,description);
-            }
-           
+            ps.setInt(1, id);
+            ps.executeUpdate();
         }
-        catch (SQLException ex) {
-            out.println("No success retrieving from DB " + ex);
+        catch (SQLException ex){
+            out.println ("Module not deleted" + ex);
         }
-    }
-    
-   
+    }     
+      
+  
     //printer ut learning resources 
     public void printLearningResources(PrintWriter out, Connection conn)
     { 
