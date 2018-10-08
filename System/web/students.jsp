@@ -14,14 +14,21 @@
         <h2>Students in class</h2>
 
         <sql:setDataSource var="db" driver="${initParam['driverClass']}" url="${initParam['connectionURL']}" user="${initParam['username']}" password="${initParam['password']}" />
-        <sql:query var="rs" dataSource="${db}">SELECT * FROM users  ORDER BY users.name ASC</sql:query>
+        <sql:query var="rs" dataSource="${db}">SELECT * FROM users ORDER BY users.name ASC</sql:query>
 
             <table class="w3-table w3-striped w3-bordered">
                 <tr><th>Name</th><th>Email</th><th>Phone</th></tr>
                     <c:forEach items="${rs.rows}" var="user">
-                <tr><td> <a href="profile.jsp"><c:out value="${user.name}"></c:out></a></td><td><c:out value="${user.email}"></c:out></td><td><c:out value="${user.phone}"></c:out></td></tr>
+                    <tr><td class="w3-btn" onclick="document.getElementById('id01').style.display='block'"><c:out value="${user.name}"></c:out></td><td><c:out value="${user.email}"></c:out></td><td><c:out value="${user.phone}"></c:out></td></tr>
+                    
                     </c:forEach>
+                    <div id="id01" class="w3-panel w3-green w3-display-container" style="display:none">
+  <span onclick="this.parentElement.style.display='none'"
+  class="w3-button w3-display-topright">X</span>
+  <p>Click on the X to close this panel.</p>
+</div>
         </table>
+        
     </div>
 </div>
             
