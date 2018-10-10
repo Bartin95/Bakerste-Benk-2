@@ -22,6 +22,12 @@ public class DBConnection {
     Connection conn;
     Statement st;
     
+    /**
+     * This method get the connection to the database
+     * @author Anette Jørgensen
+     * @param out
+     * @return 
+     */
     public Connection getConnection(PrintWriter out){
         try {
             Context cont = new InitialContext();
@@ -38,6 +44,11 @@ public class DBConnection {
         return null;
         }
     
+    /**
+     * This method closes the connection to the database.
+     * 
+     * @author Anette Jørgensen
+     */
     public void close() {
         try {
             conn.close();
@@ -47,6 +58,10 @@ public class DBConnection {
         }
     }
     
+    /**
+     * This method commits data to the database
+     * @author Anette Jørgensen
+     */
     public void commit(){
         try {
             conn.commit();

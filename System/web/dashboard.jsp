@@ -20,6 +20,7 @@
   <a href="#" class="w3-bar-item w3-button"><i class="fa fa-envelope"></i> Messages</a>
   <a href="printUsers" class="w3-bar-item w3-button"><i class="fa fa-users"> Students</i></a>
   <a href="AllPost" class="w3-bar-item w3-button"><i class="fa fa-folder"> Modules</i></a>
+   <a href="AllDel" class="w3-bar-item w3-button"><i class="fa fa-folder"> Deliverables</i></a>
   <a href="#" class="w3-bar-item w3-button"><i class="fa fa-sign-out"> Sign out</i></a>
 </div>
         

@@ -6,10 +6,9 @@
 package Servlet;
 
 import Database.DBConnection;
-import Database.Query;
+import Database.ModQuery;
 import java.io.IOException;
 import java.io.PrintWriter;
-import static java.lang.System.out;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -21,7 +20,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- *
+ *This servlet handles the process of deleting a module from the database. 
+ * 
  * @author anette jørgensen
  * @ date 4 October 2018
  */
@@ -48,7 +48,7 @@ public class DeleteModule extends HttpServlet {
             DBConnection tool = new DBConnection();
             Connection conn = tool.getConnection(out);
             
-            Query q = new Query();    
+            ModQuery q = new ModQuery();    
             q.deleteModule(id, conn, out);
             response.sendRedirect("AllPost");
             tool.commit();

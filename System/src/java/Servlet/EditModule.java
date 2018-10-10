@@ -6,7 +6,7 @@
 package Servlet;
 
 import Database.DBConnection;
-import Database.Query;
+import Database.ModQuery;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
@@ -18,8 +18,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- *
- * @author anett
+ *This servlet retrieves data about one individual module from the database
+ * The data is displayed in the EditPost.jsp page, allowing the user to edit
+ * the data. 
+ * 
+ * @author anette jorgensen
  */
 @WebServlet(name = "EditPost", urlPatterns = {"/edit"})
 public class EditModule extends HttpServlet {
@@ -40,7 +43,7 @@ public class EditModule extends HttpServlet {
            
             DBConnection tool = new DBConnection();
             Connection conn = tool.getConnection(out);
-            Query q = new Query();
+            ModQuery q = new ModQuery();
             
            String idTemp = request.getParameter("id");
            int id = Integer.parseInt(idTemp);

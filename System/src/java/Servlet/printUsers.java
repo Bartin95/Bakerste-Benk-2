@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import Database.Query;
+import Database.ModQuery;
 
 /**
  *
@@ -48,7 +48,7 @@ public class printUsers extends HttpServlet {
             
            out.println("<table class=\"w3-table w3-striped w3-bordered\">");
            out.println("<tr><th>Name</th><th>Email</th><th>Phone</th></tr>");
-            Query dbTools = new Query(); 
+            ModQuery dbTools = new ModQuery(); 
             dbTools.Con(out);
             dbTools.printUsers(out);
             out.println("</table></div>");

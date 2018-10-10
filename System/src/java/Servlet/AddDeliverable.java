@@ -1,10 +1,13 @@
 /*
- * NOT IN USE; TO BE DELETED
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
  */
 package Servlet;
 
+import Classes.Deliverable;
 import Database.DBConnection;
-import Database.Query;
+import Database.DelivQuery;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
@@ -18,11 +21,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- *
- * @author anett
+ *This servlet retrieves data from the form "addDeliv" in the AddDeliverable.jsp
+ * The data is stored in the database. 
+ * 
+ * @author anette jorgensen
+ * @date 9.10.2018
  */
-@WebServlet(name = "GetModuleData", urlPatterns = {"/GetModuleData"})
-public class GetModuleDetailsServlet extends HttpServlet {
+@WebServlet(name = "CreateDeliverableServlet", urlPatterns = {"/addDeliv"})
+public class AddDeliverable extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -32,34 +38,39 @@ public class GetModuleDetailsServlet extends HttpServlet {
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
-     * @throws java.sql.SQLException
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Modules</title>");            
-            out.println("</head>");
+            String idTemp = request.getParameter("del_id");
+            int del_id = Integer.parseInt(idTemp);
             
-            out.println("<body>");
-            out.println("<h1> Modules  </h1>");  
+            String mTemp = request.getParameter("mod_id");
+            int mod_id = Integer.parseInt(mTemp);
+            
+            String del_description = request.getParameter("description");
+            String feedback = request.getParameter("feedback");
+            String pointTemp = request.getParameter("points");
+            int points = Integer.parseInt(pointTemp);
+            String status = request.getParameter("status");
+            
+            Deliverable d = new Deliverable(del_id,del_description,feedback,points,status,mod_id);
             
             DBConnection tool = new DBConnection();
+            DelivQuery q = new DelivQuery();
             Connection conn = tool.getConnection(out);
             
-            Query q = new Query();
-            q.printModuleDetails(out, conn);
-            
+            q.addDeliverable(d, out, conn);
+           // response.sendRedirect("AllPost");
+            tool.commit();
             tool.close();
             
-            out.println("</body>");
-            out.println("</html>");
+            
         }
     }
+
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -75,7 +86,7 @@ public class GetModuleDetailsServlet extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (SQLException ex) {
-            Logger.getLogger(GetModuleDetailsServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AddDeliverable.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -93,7 +104,7 @@ public class GetModuleDetailsServlet extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (SQLException ex) {
-            Logger.getLogger(GetModuleDetailsServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AddDeliverable.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

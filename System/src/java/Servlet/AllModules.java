@@ -6,7 +6,7 @@
 package Servlet;
 
 import Database.DBConnection;
-import Database.Query;
+import Database.ModQuery;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
@@ -21,7 +21,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- *
+ *This servlet retrieves all data on modules from the database
+ *The data is displayed in the AllPost.jsp page. 
+ * 
  * @author anette jorgensen
  */
 @WebServlet(name = "AllPost", urlPatterns = {"/AllPost"})
@@ -45,8 +47,8 @@ public class AllModules extends HttpServlet {
         DBConnection tool = new DBConnection();
         Connection conn = tool.getConnection(out);
         
-        Query query = new Query();
-        //query.getAll(conn,out);
+        ModQuery query = new ModQuery();
+               
         
         request.setAttribute("AllPost", query.getAll(conn,out));
         RequestDispatcher rd = request.getRequestDispatcher("AllPost.jsp");

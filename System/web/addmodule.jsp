@@ -26,7 +26,7 @@
              Module requirements: <br>
              <textarea name ="requirement" style ="width:500px; height:100px"></textarea><br><br>
              
-             Total points:
+             Total points:<br>
              <input type ="text" name ="points" style= "width:50px"><br><br>
              
              <input type ="submit" value ="Create new module">
@@ -34,7 +34,7 @@
             
         </form>
         
-        <button onclick="createdeliverable.jsp"> Add deliverable </button>
+        
              
               
             

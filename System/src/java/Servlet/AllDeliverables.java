@@ -5,8 +5,15 @@
  */
 package Servlet;
 
+import Database.DBConnection;
+import Database.DelivQuery;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -15,10 +22,10 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author anett
+ * @author anette
  */
-@WebServlet(name = "CreateDeliverableServlet", urlPatterns = {"/createdeliverable"})
-public class CreateDeliverableServlet extends HttpServlet {
+@WebServlet(name = "AllDeliverables", urlPatterns = {"/AllDel"})
+public class AllDeliverables extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -28,21 +35,24 @@ public class CreateDeliverableServlet extends HttpServlet {
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
+     * @throws java.sql.SQLException
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, SQLException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet CreateDeliverableServlet</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet CreateDeliverableServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+            
+            DBConnection tool = new DBConnection();
+            Connection conn = tool.getConnection(out);
+            
+            DelivQuery q = new DelivQuery();
+            
+            request.setAttribute("AllDel", q.getAllDel(conn, out));
+            RequestDispatcher rd = request.getRequestDispatcher("AllDel.jsp");
+            rd.forward(request,response);
+            tool.close();
+           
+           
         }
     }
 
@@ -58,7 +68,11 @@ public class CreateDeliverableServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(AllDeliverables.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -72,7 +86,11 @@ public class CreateDeliverableServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(AllDeliverables.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**

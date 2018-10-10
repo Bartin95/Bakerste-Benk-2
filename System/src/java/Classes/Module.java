@@ -6,7 +6,8 @@ package Classes;
 //import java.sql.Date;
 
 /**
- *
+ *Module class 
+ * 
  * @author anette jorgensen
  * @date 3.10.2018
  */

@@ -24,6 +24,7 @@
         </style>
     </head>
     <body>
+        <h1>All modules</h1>
         <div style ="width: 1200px;  margin-right: auto;">
             <table cellpadding ="10">
                 <tr>
@@ -42,11 +43,14 @@
                             <a href ="edit?id=${p.modID}">Edit</a>
                             <a href ="delete?id=${p.modID}">Delete</a>
                         </td>
-                    </tr>
+                        
+                            
+                      </tr>
                 </c:forEach>
-            </table>
-        </div>
-        
-        <a href ="addmodule.jsp"> Add new module</a>
+            </table>            
+           
+        </div>        
+        <a href ="addmodule.jsp"> Add new module</a><br><br>
+        <a href ="AddDeliverable.jsp">Add deliverable</a>
     </body>
 </html>

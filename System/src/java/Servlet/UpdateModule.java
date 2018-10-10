@@ -6,7 +6,7 @@
 package Servlet;
 
 import Database.DBConnection;
-import Database.Query;
+import Database.ModQuery;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
@@ -17,7 +17,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- *
+ *This servlet handles the process of updating data on one individual module in
+ * the database.  
+ * This servlet retrieves data from the "editmodule" form at the EditPost.jsp
+ * 
  * @author anette jorgensen
  */
 @WebServlet(name = "UpdateModule", urlPatterns = {"/editmodule"})
@@ -45,7 +48,7 @@ public class UpdateModule extends HttpServlet {
            int points = Integer.parseInt(pointTemp);
            
            DBConnection tool = new DBConnection();
-           Query q = new Query();
+           ModQuery q = new ModQuery();
            Connection conn = tool.getConnection(out);
            
            q.editModule(id, title, description,requirement,points, out, conn);

@@ -7,7 +7,7 @@ package Servlet;
 
 import Classes.Module;
 import Database.DBConnection;
-import Database.Query;
+import Database.ModQuery;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
@@ -21,7 +21,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
+ *This servlet retrieves data from the "addmodule"-form at the addmodule.jsp
+ *The data is stored in the database
  *
+ * 
+ * 
  * @author anette jorgensen
  * 
  */
@@ -56,7 +60,7 @@ public class AddModule extends HttpServlet {
             Module m = new Module(id, title, description, req, points);
             
             DBConnection tool = new DBConnection();
-            Query query = new Query();
+            ModQuery query = new ModQuery();
             Connection conn = tool.getConnection(out);
             
             query.addModule(m,out,conn);
