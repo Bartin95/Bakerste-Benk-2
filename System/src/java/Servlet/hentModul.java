@@ -1,10 +1,11 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Redirected to this servlet from the index page. 
+ *  
+ *  
  */
 package Servlet;
 
+import static java.io.FileDescriptor.out;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -15,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author Nicolai
+ * @author Nicolai Øie
  */
 @WebServlet(name = "hentModul", urlPatterns = {"/hentModul"})
 public class hentModul extends HttpServlet {
@@ -40,7 +41,38 @@ public class hentModul extends HttpServlet {
             out.println("<title>Servlet hentModul</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet hentModul at " + request.getContextPath() + "</h1>");
+            
+            
+            
+            out.println("<body style='background-color:violet;'>");
+            
+    
+        out.println("<h1><b> Resources <b>  </h1>");
+    
+        
+        out.println("<form action=\"fetchLearningResources\" method=\"post\">");
+        
+        out.println("<input type=\"Submit\" name=\"valg\" value=\"Add resources\">");   
+        
+        
+        
+        
+         
+         out.print("<br><a href=\"dashboard.jsp\"><button type=\"button\">Back to dashboard</button></a>");
+        
+         out.print("<br><a href=\"GetModuleData\"><button type=\"button\">Moduler</button></a>");
+        
+         
+        
+        
+       
+    
+                   
+          
+            
+            
+            
+            
             out.println("</body>");
             out.println("</html>");
         }

@@ -85,12 +85,11 @@ public class Query {
     
    
     //printer ut learning resources 
-    public void printLearningResources(PrintWriter out, Connection conn)
+   public void printResources(PrintWriter out, Connection conn)
     { 
          String strSelect = "select * from modulerlearning";
-         // 
 
-         System.out.println("Her er læringsmålene for modulene: " + strSelect); // Echo For debugging
+         System.out.println("Here are the learning resources for the modules: " + strSelect); // Echo For debugging
  
          try {
              
@@ -98,20 +97,19 @@ public class Query {
              ResultSet rset = stmt.executeQuery(strSelect);
  
             
-                // FINN UT HVORDMAN MAN ENDRER LIVE I SIDEN!
-                out.println("Her er læringsmålene, trykk her for å endre:" +"<br>");
+                
+                out.println("Her er modulene, og deres læringsmål, trykk her for å endre:" +"<br>");
                 int rowCount = 0;
-                while(rset.next()) {   // Move the cursor to the next row, return false if no more row
+                while(rset.next()) {   
                     String resources = rset.getString("resources");
                     out.println(rowCount +": " + resources + ", " +"<br>");
                     ++rowCount;
-                 }  // end while
-         } // end catch     
+                 }  
+         }     
          catch (SQLException ex) {
                 out.println("Db funker desverre ikke" +ex);
          }
-   }
-    
+   }    
     
     
     public void printUsers(PrintWriter out) {
