@@ -6,23 +6,25 @@
 package Servlet;
 
 import Database.DBConnection;
+import Database.ModQuery;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Connection;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import Database.Query;
-import java.sql.Connection;
-
 /**
- *
- * @author glenn
+ *This servlet handles the process of updating data on one individual module in
+ * the database.  
+ * This servlet retrieves data from the "editmodule" form at the EditPost.jsp
+ * 
+ * @author anette jorgensen
  */
-@WebServlet(name = "printUsers", urlPatterns = {"/printUsers"})
-public class printUsers extends HttpServlet {
+@WebServlet(name = "UpdateModule", urlPatterns = {"/editmodule"})
+public class UpdateModule extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,8 +39,24 @@ public class printUsers extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            
+           String idTemp = request.getParameter("id");
+           int id = Integer.parseInt(idTemp);
+           String title = request.getParameter("title");
+           String description = request.getParameter("description");
+           String requirement = request.getParameter("requirement");
+           String pointTemp = request.getParameter("points");
+           int points = Integer.parseInt(pointTemp);
+           
+           DBConnection tool = new DBConnection();
+           ModQuery q = new ModQuery();
+           Connection conn = tool.getConnection(out);
+           
+           q.editModule(id, title, description,requirement,points, out, conn);
+           response.sendRedirect("AllPost");
+           tool.commit();
+           tool.close();
+           
+           
         }
     }
 

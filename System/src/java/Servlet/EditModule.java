@@ -6,23 +6,26 @@
 package Servlet;
 
 import Database.DBConnection;
+import Database.ModQuery;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Connection;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import Database.Query;
-import java.sql.Connection;
-
 /**
- *
- * @author glenn
+ *This servlet retrieves data about one individual module from the database
+ * The data is displayed in the EditPost.jsp page, allowing the user to edit
+ * the data. 
+ * 
+ * @author anette jorgensen
  */
-@WebServlet(name = "printUsers", urlPatterns = {"/printUsers"})
-public class printUsers extends HttpServlet {
+@WebServlet(name = "EditPost", urlPatterns = {"/edit"})
+public class EditModule extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,8 +40,18 @@ public class printUsers extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
+           
+            DBConnection tool = new DBConnection();
+            Connection conn = tool.getConnection(out);
+            ModQuery q = new ModQuery();
             
+           String idTemp = request.getParameter("id");
+           int id = Integer.parseInt(idTemp);
+           
+           request.setAttribute("getModuleById", q.getModById(id, conn, out));
+           RequestDispatcher rd = request.getRequestDispatcher("EditPost.jsp");
+           rd.forward(request, response);
+           
         }
     }
 

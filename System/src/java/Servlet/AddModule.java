@@ -5,8 +5,9 @@
  */
 package Servlet;
 
+import Classes.Module;
 import Database.DBConnection;
-import Database.Query;
+import Database.ModQuery;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
@@ -20,11 +21,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
+ *This servlet retrieves data from the "addmodule"-form at the addmodule.jsp
+ *The data is stored in the database
  *
- * @author anett
+ * 
+ * 
+ * @author anette jorgensen
+ * 
  */
-@WebServlet(name = "GetModuleData", urlPatterns = {"/GetModuleData"})
-public class GetModuleDetailsServlet extends HttpServlet {
+@WebServlet(name = "AddModule", urlPatterns = {"/addmodule"})
+public class AddModule extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -40,28 +46,32 @@ public class GetModuleDetailsServlet extends HttpServlet {
             throws ServletException, IOException, SQLException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
             
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Modules</title>");            
-            out.println("</head>");
-            
-            out.println("<body>");
-            out.println("<h1> Modules  </h1>");  
+            String idTemp= request.getParameter("id");
+            int id = Integer.parseInt(idTemp);          
+           
+            String title = request.getParameter("title");
+            String description = request.getParameter("description");
+            String req = request.getParameter("requirement");
+            String pointTemp = request.getParameter("points");
+            int points = Integer.parseInt(pointTemp);
+           
+            Module m = new Module(id, title, description, req, points);
             
             DBConnection tool = new DBConnection();
+            ModQuery query = new ModQuery();
             Connection conn = tool.getConnection(out);
             
-            Query q = new Query();
-            q.printModuleDetails(out, conn);
-            
+            query.addModule(m,out,conn);
+            response.sendRedirect("AllPost");
+            tool.commit();
             tool.close();
             
-            out.println("</body>");
-            out.println("</html>");
+            
         }
     }
+
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -77,7 +87,7 @@ public class GetModuleDetailsServlet extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (SQLException ex) {
-            Logger.getLogger(GetModuleDetailsServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AddModule.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -95,7 +105,7 @@ public class GetModuleDetailsServlet extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (SQLException ex) {
-            Logger.getLogger(GetModuleDetailsServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AddModule.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

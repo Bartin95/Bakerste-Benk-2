@@ -5,11 +5,15 @@
  */
 package Servlet;
 
+import Classes.Deliverable;
 import Database.DBConnection;
-import Database.Query;
+import Database.DelivQuery;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -17,11 +21,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- *
- * @author anett
+ *This servlet retrieves data from the form "addDeliv" in the AddDeliverable.jsp
+ * The data is stored in the database. 
+ * 
+ * @author anette jorgensen
+ * @date 9.10.2018
  */
-@WebServlet(name = "CreateModuleServlet", urlPatterns = {"/createmodule"})
-public class CreateModuleServlet extends HttpServlet {
+@WebServlet(name = "CreateDeliverableServlet", urlPatterns = {"/addDeliv"})
+public class AddDeliverable extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -33,22 +40,34 @@ public class CreateModuleServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, SQLException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            String id = request.getParameter("id");
-            String title = request.getParameter("title");
-            String description = request.getParameter("description");
+            
+            String idTemp = request.getParameter("del_id");
+            int del_id = Integer.parseInt(idTemp);
+            
+            String mTemp = request.getParameter("mod_id");
+            int mod_id = Integer.parseInt(mTemp);
+            
+            String del_description = request.getParameter("description");
+            String feedback = request.getParameter("feedback");
+            String pointTemp = request.getParameter("points");
+            int points = Integer.parseInt(pointTemp);
+            String status = request.getParameter("status");
+            
+            Deliverable d = new Deliverable(del_id,del_description,feedback,points,status,mod_id);
             
             DBConnection tool = new DBConnection();
-            Query query = new Query();
+            DelivQuery q = new DelivQuery();
             Connection conn = tool.getConnection(out);
             
-            query.newModule(id,title,description,out,conn);
-            
+            q.addDeliverable(d, out, conn);
+           // response.sendRedirect("AllPost");
             tool.commit();
             tool.close();
+            
+            
         }
     }
 
@@ -64,7 +83,11 @@ public class CreateModuleServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(AddDeliverable.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -78,7 +101,11 @@ public class CreateModuleServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(AddDeliverable.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
