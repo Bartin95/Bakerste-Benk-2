@@ -85,12 +85,11 @@ public class Query {
     
    
     //printer ut learning resources 
-    public void printLearningResources(PrintWriter out, Connection conn)
+   public void printResources(PrintWriter out, Connection conn)
     { 
          String strSelect = "select * from modulerlearning";
-         // 
 
-         System.out.println("Her er læringsmålene for modulene: " + strSelect); // Echo For debugging
+         System.out.println("Here are the learning resources for the modules: " + strSelect); // Echo For debugging
  
          try {
              
@@ -98,54 +97,18 @@ public class Query {
              ResultSet rset = stmt.executeQuery(strSelect);
  
             
-                // FINN UT HVORDMAN MAN ENDRER LIVE I SIDEN!
-                out.println("Her er læringsmålene, trykk her for å endre:" +"<br>");
+                
+                out.println("Her er modulene, og deres læringsmål, trykk her for å endre:" +"<br>");
                 int rowCount = 0;
-                while(rset.next()) {   // Move the cursor to the next row, return false if no more row
+                while(rset.next()) {   
                     String resources = rset.getString("resources");
                     out.println(rowCount +": " + resources + ", " +"<br>");
                     ++rowCount;
-                 }  // end while
-         } // end catch     
+                 }  
+         }     
          catch (SQLException ex) {
                 out.println("Db funker desverre ikke" +ex);
          }
-   }
-    
-    /**
-     * Akka bakka
-     * @param out 
-     */
-    
-    public void printUsers(PrintWriter out) {
-        String strSelect = "select * from users";
-
-        System.out.println();
-        out.println();
-
-        try {
-
-            ResultSet rset = stmt.executeQuery(strSelect);
-
-            // Step 4: Process the ResultSet by scrolling the cursor forward via next().
-            //  For each row, retrieve the contents of the cells with getXxx(columnName).
-            int rowCount = 0;
-            while (rset.next()) {   // Move the cursor to the next row, return false if no more row
-                String fname = rset.getString("fname");
-                String lname = rset.getString("lname");
-                String cus_email = rset.getString("cus_email");
-                String cus_phone = rset.getString("cus_phone");
-                String user_ID = rset.getString("user_ID");
-
-                out.println("<tr><td> <a href=\"" + user_ID + "#\">" + fname + " " + lname + "</a></td><td> " + cus_email + "</td><td>" + cus_phone + "</td></tr>");
-                ++rowCount;
-            }  // end while
-            out.println("Number of students: " + rowCount);
-        } // end catch     
-        catch (SQLException ex) {
-            out.println("Not from DB " + ex);
-        }
-    }
-    
+   }    
 }
 

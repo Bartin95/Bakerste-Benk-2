@@ -5,24 +5,30 @@
  */
 package Servlet;
 
+import Classes.Deliverable;
 import Database.DBConnection;
+import Database.DelivQuery;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import Database.Query;
-import java.sql.Connection;
-
 /**
- *
- * @author glenn
+ *This servlet retrieves data from the form "addDeliv" in the AddDeliverable.jsp
+ * The data is stored in the database. 
+ * 
+ * @author anette jorgensen
+ * @date 9.10.2018
  */
-@WebServlet(name = "printUsers", urlPatterns = {"/printUsers"})
-public class printUsers extends HttpServlet {
+@WebServlet(name = "CreateDeliverableServlet", urlPatterns = {"/addDeliv"})
+public class AddDeliverable extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,10 +40,33 @@ public class printUsers extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, SQLException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
+            
+            String idTemp = request.getParameter("del_id");
+            int del_id = Integer.parseInt(idTemp);
+            
+            String mTemp = request.getParameter("mod_id");
+            int mod_id = Integer.parseInt(mTemp);
+            
+            String del_description = request.getParameter("description");
+            String feedback = request.getParameter("feedback");
+            String pointTemp = request.getParameter("points");
+            int points = Integer.parseInt(pointTemp);
+            String status = request.getParameter("status");
+            
+            Deliverable d = new Deliverable(del_id,del_description,feedback,points,status,mod_id);
+            
+            DBConnection tool = new DBConnection();
+            DelivQuery q = new DelivQuery();
+            Connection conn = tool.getConnection(out);
+            
+            q.addDeliverable(d, out, conn);
+           // response.sendRedirect("AllPost");
+            tool.commit();
+            tool.close();
+            
             
         }
     }
@@ -54,7 +83,11 @@ public class printUsers extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(AddDeliverable.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -68,7 +101,11 @@ public class printUsers extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(AddDeliverable.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
